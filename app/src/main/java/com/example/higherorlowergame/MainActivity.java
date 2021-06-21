@@ -3,6 +3,7 @@ package com.example.higherorlowergame;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -14,31 +15,37 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
 
         int randomNum;
+        public void generateRandomNumber(){
+
+            Random rand = new Random();
+            randomNum = rand.nextInt( 20) + 1;
+
+        }
 
 
     public void click(View view){
-        int k;
+
 
         EditText editTextGuess=findViewById(R.id.editTextGuess);
-
-        k= Integer.parseInt(editTextGuess.toString());
-
-      // nextInt as provided by Random is exclusive of the top value so you need to add 1
+        int guessValue=Integer.parseInt(editTextGuess.getText().toString());
         String message;
 
+        if( guessValue > randomNum){
+            message="Go Lower!!";
+        }
+        else if (guessValue < randomNum){
+            message = "Go Higher";
+        }
+        else {
+            message = "Correct !!!";
 
-        if(k>randomNum){
-            message="lower";
+            generateRandomNumber();
         }
-        else if (k<randomNum){
-            message="higher";
-        }
-        else
-        {
-            message="got it";generateRandNumber();
-        }
-
         Toast.makeText(this,message,Toast.LENGTH_LONG).show();
+
+        Log.i("entered no",editTextGuess.getText().toString());
+        Log.i("rand no", String.valueOf(randomNum));
+
 
 
     }
